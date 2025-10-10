@@ -11,9 +11,11 @@ class ConfigManager():
 
         openai_api_key = os.getenv("OPENAI_API_KEY")
         conn_str = os.getenv('CONN_STR')
+        sql_db = os.getenv('SQL_DB')
 
         self.openai_api_key = openai_api_key
         self.conn_str = conn_str
+        self.sql_db = sql_db
         
     # def create_dir  
      
