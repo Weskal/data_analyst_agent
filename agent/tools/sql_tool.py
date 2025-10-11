@@ -79,49 +79,41 @@ def run_sql_query(query: str, conn_str) -> dict:
     except Exception as e:
         return {"error": {e}, "message":"failure"}
 
-def interpret_results(question, query, result, generate_graph=False):
-    """AI interprets the result in natural language"""
+# def main():
     
-    # Pedir para a IA explicar o resultado na hora da interpretação
-    # passar 0 = O pedido
-    # passar 1 = A query
-    # passar 2 = O resultado
-    # gerar = Gráfico + explicação ?
-
-def main():
+#     question = "Qual o total de funcionários na tabela de funcionários?"
     
-    question = "Qual o total de funcionários na tabela de funcionários?"
+#     # Criar uma função para ler a questão e verificar se o usuário pediu algum gráfico/tabela ou visual do resultado se pediu, utilizar a tool apropriada para gerar e
+#     # depois devolver como True of False
+#     #generate_graph = False
     
-    # Criar uma função para ler a questão e verificar se o usuário pediu algum gráfico/tabela ou visual do resultado se pediu, utilizar a tool apropriada para gerar e
-    # depois devolver como True of False
-    #generate_graph = False
+#     max_retries = 2
     
-    max_retries = 2
-    
-    for attempt in range(max_retries):
-        try:
-            sql_query = gen_sql_query(question, openai_client, schema)
+#     for attempt in range(max_retries):
+#         try:
+#             sql_query = gen_sql_query(question, openai_client, schema)
             
-        except db.Error as e:
-            if attempt < max_retries - 1:
-                print("Trying one more time to execute the query")
-                sql_query = gen_sql_query(question, openai_client, schema)
-            else:
-                return {"error": f"Failure after {max_retries} tries: {str(e)}"}
+#         except db.Error as e:
+#             if attempt < max_retries - 1:
+#                 print("Trying one more time to execute the query")
+#                 sql_query = gen_sql_query(question, openai_client, schema)
+#             else:
+#                 return {"error": f"Failure after {max_retries} tries: {str(e)}"}
         
-    result_dict = run_sql_query(sql_query, conn_str)
+#     result_dict = run_sql_query(sql_query, conn_str)
     
-    if result_dict.get('message') == 'success':
-        print("\n" + "="*50)
-        print("Query Results")
-        print("="*50 + "\n")
-        print(result_dict['markdown'])
-        print(f"\nRows: {result_dict['rows']}")
-        print(f"Columns: {', '.join(result_dict['columns'])}\n")
-    else:
-        print(f"Error: {result_dict.get('error')}")
+#     if result_dict.get('message') == 'success':
+#         print("\n" + "="*50)
+#         print("Query Results")
+#         print("="*50 + "\n")
+#         print(result_dict['markdown'])
+#         print(f"\nRows: {result_dict['rows']}")
+#         ## Passar para a IA decidir como exibir a informação
+#         print(f"Columns: {', '.join(result_dict['columns'])}\n")
+#     else:
+#         print(f"Error: {result_dict.get('error')}")
         
-    #final_response = interpret_results(question, sql_query, result_dict, generate_graph)
+#     #final_response = interpret_results(question, sql_query, result_dict, generate_graph)
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
